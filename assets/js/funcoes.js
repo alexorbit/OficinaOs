@@ -1,4 +1,4 @@
-$(function () {
+$(function() {
     $("#celular").mask("(00)00000-0000")
     $("#cep").mask("00000-000")
     $('#cpfUser').mask('000.000.000-00', { reverse: true });
@@ -35,7 +35,7 @@ $(function () {
 });
 
 
-$(function () {
+$(function() {
     if ($('.cpfcnpjmine').val() != null) {
         if ($('.cpfcnpjmine').val() != "") {
             $(".cpfcnpjmine").prop('readonly', true);
@@ -50,17 +50,17 @@ $(function () {
 
 });
 
-$(function () {
-    var telefoneN = function (val) {
-        return val.replace(/\D/g, '').length > 10 ? '(00)00000-0000' : '(00)0000-00009';
-    },
+$(function() {
+    var telefoneN = function(val) {
+            return val.replace(/\D/g, '').length > 10 ? '(00)00000-0000' : '(00)0000-00009';
+        },
         telefoneOptions = {
-            onKeyPress: function (val, e, field, options) {
+            onKeyPress: function(val, e, field, options) {
                 field.mask(telefoneN.apply({}, arguments), options);
             },
         };
     $('#telefone').mask(telefoneN, telefoneOptions);
-    $('#telefone').on('paste', function (e) {
+    $('#telefone').on('paste', function(e) {
         e.preventDefault();
         var clipboardCurrentData = (e.originalEvent || e).clipboardData.getData('text/plain');
         $('#telefone').val(clipboardCurrentData);
@@ -68,18 +68,18 @@ $(function () {
 
 });
 
-$(function () {
+$(function() {
     // INICIO FUNÇÃO DE MASCARA CPF/CNPJ
-    var cpfMascara = function (val) {
-        return val.replace(/\D/g, '').length > 11 ? '00.000.000/0000-00' : '000.000.000-009';
-    },
+    var cpfMascara = function(val) {
+            return val.replace(/\D/g, '').length > 11 ? '00.000.000/0000-00' : '000.000.000-009';
+        },
         cpfOptions = {
-            onKeyPress: function (val, e, field, options) {
+            onKeyPress: function(val, e, field, options) {
                 field.mask(cpfMascara.apply({}, arguments), options);
             },
         };
     $('.cpfcnpj').mask(cpfMascara, cpfOptions);
-    $('.cpfcnpj').on('paste', function (e) {
+    $('.cpfcnpj').on('paste', function(e) {
         e.preventDefault();
         var clipboardCurrentData = (e.originalEvent || e).clipboardData.getData('text/plain');
         $('.cpfcnpj').val(clipboardCurrentData);
@@ -87,7 +87,7 @@ $(function () {
     // FIM FUNÇÃO DE MASCARA CPF/CNPJ
 });
 
-$(document).ready(function () {
+$(document).ready(function() {
     if ($("[name='idClientes']").val()) {
         $("#nomeCliente").focus();
     } else {
@@ -175,7 +175,7 @@ $(document).ready(function () {
         return true;
     }
 
-    $('#buscar_info_cnpj').on('click', function () {
+    $('#buscar_info_cnpj').on('click', function() {
         //Nova variável "ndocumento" somente com dígitos.
         var ndocumento = $('#documento').val().replace(/\D/g, '');
 
@@ -197,7 +197,7 @@ $(document).ready(function () {
                 dataType: 'jsonp',
                 crossDomain: true,
                 contentType: "text/javascript",
-                success: function (dados) {
+                success: function(dados) {
                     if (dados.status == "OK") {
                         //Atualiza os campos com os valores da consulta.
                         if ($("#nomeCliente").val() != null) {
@@ -250,7 +250,7 @@ $(document).ready(function () {
                         });
                     }
                 },
-                error: function () {
+                error: function() {
                     ///CEP pesquisado não foi encontrado.
                     if ($("#nomeCliente").val() != null) {
                         $("#nomeCliente").val("");
@@ -300,11 +300,12 @@ $(document).ready(function () {
 
             //Consulta o webservice receitaws.com.br/
             $.ajax({
-                url: "https://apicarros.com/v2/consultas/" + placa + "/f63e1e63dd231083d38ce929984aac7d",
+                url: "https://apicarros.com/v2/consultas/" + placa + "/a752609f3c3436018852e0e7e046c05b",
+                //url: "https://apicarros.com/v2/consultas/" + placa + "/f63e1e63dd231083d38ce929984aac7d",
                 dataType: 'json',
                 crossDomain: true,
                 //contentType: "text/javascript",
-                success: function (dados) {
+                success: function(dados) {
                     if (dados.codigoRetorno == "0" || dados.codigoSituacao == "0") {
                         //Atualiza os campos com os valores da consulta.
                         montadora = (dados.modelo.split("/")[0]);
@@ -343,7 +344,7 @@ $(document).ready(function () {
                         $("#uf").val(dados.uf);
                         $("#statusPlaca").val(capitalizeFirstLetter(dados.situacao));
                         //document.getElementById("nomeCliente").focus();
-                        
+
                     } //end if.
                     else {
                         //Placa pesquisada não foi encontrada.
@@ -364,7 +365,7 @@ $(document).ready(function () {
                         });
                     }
                 },
-                error: function () {
+                error: function() {
                     ///Placa pesquisada com erro.
                     $("#carro").val("");
                     $("#montadora").val("");
@@ -393,7 +394,7 @@ $(document).ready(function () {
             });
         }
     };
-    $('#buscar_info_placa').on('click', function () {
+    $('#buscar_info_placa').on('click', function() {
         //Nova variável "ndocumento" somente com dígitos.
         var placa = $('#placa').val().replace('-', '').toLocaleUpperCase();
         buscaPlaca(placa);
@@ -414,7 +415,7 @@ $(document).ready(function () {
     };
 
     //Quando o campo cep perde o foco.
-    $("#cep").blur(function () {
+    $("#cep").blur(function() {
 
         //Nova variável "cep" somente com dígitos.
         var cep = $(this).val().replace(/\D/g, '');
@@ -437,7 +438,7 @@ $(document).ready(function () {
                 $("#estado").val("...");
 
                 //Consulta o webservice viacep.com.br/
-                $.getJSON("https://viacep.com.br/ws/" + cep.replace(/\./g, '') + "/json/?callback=?", function (dados) {
+                $.getJSON("https://viacep.com.br/ws/" + cep.replace(/\./g, '') + "/json/?callback=?", function(dados) {
 
                     if (!("erro" in dados)) {
                         //Atualiza os campos com os valores da consulta.
