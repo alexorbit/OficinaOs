@@ -414,6 +414,30 @@ $(document).ready(function() {
         return true;
     };
 
+  // nova funcao busca placa usando o api placaapi. by @alexorbit
+    
+   function getVehicleData() {
+  var xmlhttp = new XMLHttpRequest();
+  let url = "https://www.placaapi.com/API/reg.asmx/CheckBrazil?RegistrationNumber=" + placa + "&username=nomeusuario";
+
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let myObj = JSON.parse(this.responseText);
+      document.getElementById("description").innerHtml = myObj'vehicleData''Description';
+      document.getElementById("regYear").innerHtml = myObj'vehicleData''RegistrationYear';
+      document.getElementById("carMake").innerHtml = myObj'vehicleData''CarMake''CurrentTextValue';
+      document.getElementById("carModel").innerHtml = myObj'vehicleData''CarModel';;
+      document.getElementById("engineSize").innerHtml = myObj'vehicleData''EngineSize'"CurrentValue";  
+      document.getElementById("fuelType").innerHtml = myObj'vehicleData'"FuelType""CurrentValue"; 
+      document.getElementById("numSeats").innerHtml = myObj'vehicleData'"NumberOfSeats""CurrentValue";    
+    }                                                                                                                                                                                                                                                                                                                          ▓▓▓                                                                                                                                                                                                                                             };
+  xmlhttp.open('GET', url, true);
+  xmlhttp.send(); 
+  return false;
+  }
+ 
+    
+    
     //Quando o campo cep perde o foco.
     $("#cep").blur(function() {
 
